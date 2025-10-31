@@ -1,0 +1,19 @@
+# TERMINAL 1 — BROKER
+python -m broker.broker --xsub tcp://*:7000 --xpub tcp://*:7001 --hc tcp://*:7002
+
+# TERMINAL 2 — Operador 1
+python -m operators.operador_1 --name operador-1 --xsub tcp://127.0.0.1:7000 --xpub tcp://127.0.0.1:7001 --hc tcp://127.0.0.1:7002
+
+# TERMINAL 3 — Operador 2
+python -m operators.operador_1 --name operador-2 --xsub tcp://127.0.0.1:7000 --xpub tcp://127.0.0.1:7001 --hc tcp://127.0.0.1:7002
+# (puedes duplicar el archivo o invocar el mismo con --name distinto)
+
+# TERMINAL 4 — Coordinador (GC)
+python -m coordinator.gc --xsub tcp://127.0.0.1:7000 --xpub tcp://127.0.0.1:7001 --hc tcp://127.0.0.1:7002 --operadores operador-1 operador-2
+
+# TERMINAL 5 — Cliente 1
+python -m cliente.cliente --xsub tcp://127.0.0.1:7000 --xpub tcp://127.0.0.1:7001 --hc tcp://127.0.0.1:7002 --n 6
+# (ingresa A y B cuando lo pida)
+
+# TERMINAL 6 — Cliente 2 (opcional, otro corr_id y otro reply_to)
+python -m cliente.cliente --xsub tcp://127.0.0.1:7000 --xpub tcp://127.0.0.1:7001 --hc tcp://127.0.0.1:7002 --n 6 --client_id cli-02
