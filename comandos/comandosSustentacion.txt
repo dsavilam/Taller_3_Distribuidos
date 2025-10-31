@@ -1,22 +1,22 @@
 ANTES DE TODO ----> PIP INSTALL ZMQ
 # (Usa: pip install pyzmq)
 
-<IP_BROKER> → VM1
-<IP_GC>     → VM2
-<IP_OP1>    → VM3
-<IP_OP2>    → VM4
+<IP_BROKER> → VM1 (AMELIE): 10.43.102.154
+<IP_GC>     → VM2 (SANTIAGO): 10.43.102.163
+<IP_OP1>    → VM3 (DANIEL): 10.43.101.229
+<IP_OP2>    → VM4 (ANDRES): 10.43.103.42
 
-VM1 (BROKER)
+VM1 (BROKER - AMELIE)
 python3 -m broker.broker --xsub tcp://0.0.0.0:7000 --xpub tcp://0.0.0.0:7001 --hc tcp://0.0.0.0:7002
 
-VM3 (Operador 1)
-python3 -m operators.operador_1 --name operador-1 --xsub tcp://<IP_BROKER>:7000 --xpub tcp://<IP_BROKER>:7001 --hc tcp://<IP_BROKER>:7002
+VM3 (Operador 1 - DANIEL)
+python3 -m operators.operador_1 --name operador-1 --xsub tcp://<10.43.102.163>:7000 --xpub tcp://<10.43.102.163>:7001 --hc tcp://<10.43.102.163>:7002
 
-VM4 (Operador 2)
-python3 -m operators.operador_1 --name operador-2 --xsub tcp://<IP_BROKER>:7000 --xpub tcp://<IP_BROKER>:7001 --hc tcp://<IP_BROKER>:7002
+VM4 (Operador 2 - ANDRES)
+python3 -m operators.operador_1 --name operador-2 --xsub tcp://<10.43.102.163>:7000 --xpub tcp://<10.43.102.163>:7001 --hc tcp://<10.43.102.163>:7002
 
-VM2 (GC)
-python3 -m coordinator.gc --xsub tcp://<IP_BROKER>:7000 --xpub tcp://<IP_BROKER>:7001 --hc tcp://<IP_BROKER>:7002 --operadores operador-1 operador-2
+VM2 (GC - SANTIAGO)
+python3 -m coordinator.gc --xsub tcp://<10.43.102.163>:7000 --xpub tcp://<10.43.102.163>:7001 --hc tcp://<10.43.102.163>:7002 --operadores operador-1 operador-2
 
-VM3 (Cliente tambien xd)
-python3 -m cliente.cliente --xsub tcp://<IP_BROKER>:7000 --xpub tcp://<IP_BROKER>:7001 --hc tcp://<IP_BROKER>:7002 --n 6
+VM3 (DANIEL - CLIENTE)
+python3 -m cliente.cliente --xsub tcp://<10.43.102.163>:7000 --xpub tcp://<10.43.102.163>:7001 --hc tcp://<10.43.102.163>:7002 --n 6
